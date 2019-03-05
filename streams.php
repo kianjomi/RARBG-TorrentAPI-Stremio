@@ -1,6 +1,14 @@
 <?php
 include 'helpers.php';
 $streams = getRequestParams();
+$imdb = $streams->id;
+$jsonfile = dirname(__FILE__) . '/streams/' . $imdb . '.json';
+$jsondate1h = date("ymdHi", strtotime("-1 hour"));
+$jsondate = date("ymdHi", filectime($jsonfile));
+if (realpath($jsonfile) AND $jsondate >= $jsondate1h AND filesize($jsonfile) >= 875) {
+setHeaders();
+echo file_get_contents($jsonfile);
+} else {
 $appid = str_replace('.', '', $_SERVER['SERVER_NAME']);
 $tokenurl = 'https://torrentapi.org/pubapi_v2.1.php?app_id='.$appid.'&get_token=get_token';
 $tokench = curl_init($tokenurl);
@@ -11,7 +19,6 @@ curl_setopt($tokench, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; WOW64; r
 $token = curl_exec($tokench);
 curl_close($tokench);
 $token = substr($token, 10, 10);
-$imdb = $streams->id;
 if (strpos($imdb, ':') !== false) {
 $imdbtv = substr($imdb, 0, 9);
 preg_match_all('/:(.*?):/s', $imdb, $season);
@@ -103,5 +110,9 @@ $stream9->name = "RARBG";
 $stream9->title = $title[1][9].' , '.$seeders[1][9].' S / '.$leechers[1][9].' L , '.round($size9, 0).' MB';
 $stream9->infoHash = $magnet[1][9];
 $streams->streams = array($stream0,$stream1,$stream2,$stream3,$stream4,$stream5,$stream6,$stream7,$stream8,$stream9);
-echo json_encode((array)$streams);	
+echo json_encode((array)$streams);
+$fpjson = fopen(dirname(__FILE__) . '/streams/' . $imdb . '.json', 'w');
+fwrite($fpjson, json_encode($streams));
+fclose($fpjson);
+}	
 ?>

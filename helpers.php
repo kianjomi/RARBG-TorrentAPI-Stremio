@@ -6,7 +6,6 @@ $str    = substr_replace( $str , $replace , $pos , $search_length );
 }
 return $str;
 }
-
 function getRequestParams() {
 $requestArgs = new stdClass();
 $requestArgs->type = $_GET["type"];
@@ -17,7 +16,6 @@ $requestArgs->extra = (object) $requestArgs->extra;
 }
 return $requestArgs;
 }
-
 function setHeaders() {
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");

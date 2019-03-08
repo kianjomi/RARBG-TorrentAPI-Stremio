@@ -4,7 +4,7 @@ $streams = getRequestParams();
 $imdb = $streams->id;
 $jsonfile = dirname(__FILE__) . '/streams/' . $imdb . '.json';
 $jsondate6h = date("ymdHi", strtotime("-6 hours"));
-$jsondate = date("ymdHi", filectime($jsonfile));
+$jsondate = date("ymdHi", filemtime($jsonfile));
 if (realpath($jsonfile) AND $jsondate >= $jsondate6h AND filesize($jsonfile) >= 875) {
 setHeaders();
 echo file_get_contents($jsonfile);

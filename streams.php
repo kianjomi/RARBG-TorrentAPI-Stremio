@@ -9,7 +9,7 @@ if (realpath($jsonfile) AND $jsondate >= $jsondate6h AND filesize($jsonfile) >= 
 setHeaders();
 echo file_get_contents($jsonfile);
 } else {
-$appid = str_replace('.', '', $_SERVER['SERVER_NAME']);
+$appid = date("ymdH");
 $tokenurl = 'https://torrentapi.org/pubapi_v2.1.php?app_id='.$appid.'&get_token=get_token';
 $tokench = curl_init($tokenurl);
 curl_setopt($tokench, CURLOPT_TIMEOUT, 5);

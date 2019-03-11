@@ -47,6 +47,7 @@ preg_match_all('/"seeders":(.*?),"/s', $tapi, $seeders);
 preg_match_all('/"leechers":(.*?),"/s', $tapi, $leechers);
 preg_match_all('/"size":(.*?),"/s', $tapi, $size);
 preg_match_all('/=urn:btih:(.*?)&dn=/s', $tapi, $magnet);
+preg_match_all('/"pubdate":"(.*?) /s', $tapi, $pubdate);
 $size0 = $size[1][0];
 $size0 = $size0/1048576;
 $size1 = $size[1][1];
@@ -114,5 +115,12 @@ echo json_encode((array)$streams);
 $fpjson = fopen(dirname(__FILE__) . '/streams/' . $imdb . '.json', 'w');
 fwrite($fpjson, json_encode($streams));
 fclose($fpjson);
+$pdate = date_create($pubdate[1][0]);
+$pdate = date_format($pdate, 'ymdHi');
+$pdate6m = date("ymdHi", strtotime("-6 months"));
+if ($pdate <= $pdate6m) {
+$jsondate6m = time() + (86400 * 180);
+touch($jsonfile, $jsondate6m);
+}
 }	
 ?>

@@ -117,9 +117,9 @@ fwrite($fpjson, json_encode($streams));
 fclose($fpjson);
 $pdate = date_create($pubdate[1][0]);
 $pdate = date_format($pdate, 'ymdHi');
-$pdate6m = date("ymdHi", strtotime("-6 months"));
-if ($pdate <= $pdate6m) {
-$jsondate6m = time() + (86400 * 180);
+$pdate3m = date("ymdHi", strtotime("-3 months"));
+if ($pdate <= $pdate3m) {
+$jsondate3m = time() + (86400 * 90);
 touch($jsonfile, $jsondate6m);
 }
 }	

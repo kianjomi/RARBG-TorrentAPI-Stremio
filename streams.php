@@ -31,9 +31,9 @@ if ($episode < 10) {
 $episode = '0'.$episode;
 }
 $seaepi = 'S'.$season.'E'.$episode;
-$tapiurl = 'https://torrentapi.org/pubapi_v2.1.php?app_id='.$appid.'&mode=search&search_string='.$seaepi.'&search_imdb='.$imdbtv.'&category=18;41&sort=seeders&min_seeders=2&limit=10&format=json_extended&token='.$token.'';
+$tapiurl = 'https://torrentapi.org/pubapi_v2.1.php?app_id='.$appid.'&mode=search&search_string='.$seaepi.'&search_imdb='.$imdbtv.'&category=18;41&sort=seeders&min_seeders=1&limit=10&format=json_extended&token='.$token.'';
 } else {
-$tapiurl = 'https://torrentapi.org/pubapi_v2.1.php?app_id='.$appid.'&mode=search&search_imdb='.$imdb.'&category=17;44;45&sort=seeders&min_seeders=2&limit=10&format=json_extended&token='.$token.'';
+$tapiurl = 'https://torrentapi.org/pubapi_v2.1.php?app_id='.$appid.'&mode=search&search_imdb='.$imdb.'&category=17;44;45&sort=seeders&min_seeders=1&limit=10&format=json_extended&token='.$token.'';
 }
 $tapich = curl_init($tapiurl);
 curl_setopt($tapich, CURLOPT_TIMEOUT, 5);

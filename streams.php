@@ -120,7 +120,7 @@ $pdate = date_format($pdate, 'ymdHi');
 $pdate3m = date("ymdHi", strtotime("-3 months"));
 if ($pdate <= $pdate3m) {
 $jsondate3m = time() + (86400 * 90);
-touch($jsonfile, $jsondate6m);
+touch($jsonfile, $jsondate3m);
 }
 }	
 ?>

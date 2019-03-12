@@ -3,13 +3,13 @@ include 'helpers.php';
 $streams = getRequestParams();
 $imdb = $streams->id;
 $jsonfile = dirname(__FILE__) . '/streams/' . $imdb . '.json';
-$jsondate6h = date("ymdHi", strtotime("-6 hours"));
-$jsondate = date("ymdHi", filemtime($jsonfile));
+$jsondate6h = date('ymdHi', strtotime('-6 hours'));
+$jsondate = date('ymdHi', filemtime($jsonfile));
 if (realpath($jsonfile) AND $jsondate >= $jsondate6h AND filesize($jsonfile) >= 875) {
 setHeaders();
 echo file_get_contents($jsonfile);
 } else {
-$appid = date("ymdH");
+$appid = date('ymdH');
 $tokenurl = 'https://torrentapi.org/pubapi_v2.1.php?app_id='.$appid.'&get_token=get_token';
 $tokench = curl_init($tokenurl);
 curl_setopt($tokench, CURLOPT_TIMEOUT, 5);
@@ -117,7 +117,7 @@ fwrite($fpjson, json_encode($streams));
 fclose($fpjson);
 $pdate = date_create($pubdate[1][0]);
 $pdate = date_format($pdate, 'ymdHi');
-$pdate3m = date("ymdHi", strtotime("-3 months"));
+$pdate3m = date('ymdHi', strtotime('-3 months'));
 if ($pdate <= $pdate3m) {
 $jsondate3m = time() + (86400 * 90);
 touch($jsonfile, $jsondate3m);

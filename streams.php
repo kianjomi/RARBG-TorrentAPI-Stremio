@@ -3,9 +3,9 @@ include 'helpers.php';
 $streams = getRequestParams();
 $imdb = $streams->id;
 $jsonfile = dirname(__FILE__) . '/streams/' . $imdb . '.json';
-$jsondate6h = date('ymdHi', strtotime('-6 hours'));
+$datenow = date('ymdHi');
 $jsondate = date('ymdHi', filemtime($jsonfile));
-if (realpath($jsonfile) AND $jsondate >= $jsondate6h AND filesize($jsonfile) >= 875) {
+if (realpath($jsonfile) AND $jsondate >= $datenow AND filesize($jsonfile) >= 875) {
 setHeaders();
 echo file_get_contents($jsonfile);
 } else {
@@ -118,9 +118,11 @@ fclose($fpjson);
 $pdate = date_create($pubdate[1][0]);
 $pdate = date_format($pdate, 'ymdHi');
 $pdate3m = date('ymdHi', strtotime('-3 months'));
-if ($pdate <= $pdate3m) {
-$jsondate3m = time() + (86400 * 90);
-touch($jsonfile, $jsondate3m);
+if ($pdate >= $pdate3m) {
+$jsonfcdate = time() + (3600 * 6);
+} else {
+$jsonfcdate = time() + (86400 * 90);
 }
+touch($jsonfile, $jsonfcdate);
 }	
 ?>

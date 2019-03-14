@@ -120,7 +120,7 @@ $pdate = date_create($pdate);
 $pdate = date_format($pdate, 'ymdHi');
 $pdate3m = date('ymdHi', strtotime('-3 months'));
 if ($pdate >= $pdate3m) {
-$jsonfcdate = time() + (3600 * 6);
+$jsonfcdate = time() + (3600 * 12);
 } else {
 $jsonfcdate = time() + (86400 * 90);
 }

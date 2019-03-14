@@ -115,7 +115,8 @@ echo json_encode((array)$streams);
 $fpjson = fopen(dirname(__FILE__) . '/streams/' . $imdb . '.json', 'w');
 fwrite($fpjson, json_encode($streams));
 fclose($fpjson);
-$pdate = date_create($pubdate[1][0]);
+$pdate = str_replace('-', '', $pubdate[1][0]);
+$pdate = date_create($pdate);
 $pdate = date_format($pdate, 'ymdHi');
 $pdate3m = date('ymdHi', strtotime('-3 months'));
 if ($pdate >= $pdate3m) {

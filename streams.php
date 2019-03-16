@@ -3,9 +3,26 @@ include 'helpers.php';
 $streams = getRequestParams();
 $imdb = $streams->id;
 $jsonfile = dirname(__FILE__) . '/streams/' . $imdb . '.json';
+if (realpath($jsonfile) {
+$jsonfilestatus = 1;
 $datenow = date('ymdHi');
-$jsondate = date('ymdHi', filemtime($jsonfile));
-if (realpath($jsonfile) AND $jsondate >= $datenow AND filesize($jsonfile) >= 875) {
+$jsonfiledate = date('ymdHi', filemtime($jsonfile));
+if (filesize($jsonfile) >= 875) {
+$jsonfilesize = 1;	
+} else {
+$jsonfilesize = 0;
+}
+if ($jsonfiledate >= $datenow) {
+$jsonfilenor = 1;
+} else {
+$jsonfilenor = 0;
+}
+} else {
+$jsonfilestatus = 0;
+$jsonfilesize = 0;
+$jsonfilenor = 0;
+}
+if ($jsonfilestatus == 1 AND $jsonfilesize == 1 AND $jsonfilenor == 1) {
 setHeaders();
 echo file_get_contents($jsonfile);
 } else {
@@ -118,12 +135,12 @@ fclose($fpjson);
 $pdate = str_replace('-', '', $pubdate[1][0]);
 $pdate = date_create($pdate);
 $pdate = date_format($pdate, 'ymdHi');
-$pdate3m = date('ymdHi', strtotime('-3 months'));
-if ($pdate >= $pdate3m) {
+$pdate3d = date('ymdHi', strtotime('-3 days'));
+if ($pdate >= $pdate3d) {
 $jsonfcdate = time() + (3600 * 12);
 } else {
-$jsonfcdate = time() + (86400 * 90);
+$jsonfcdate = time() + (86400 * 15);
 }
 touch($jsonfile, $jsonfcdate);
-}	
+}
 ?>

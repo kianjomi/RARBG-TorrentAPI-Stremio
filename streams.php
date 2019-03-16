@@ -3,7 +3,7 @@ include 'helpers.php';
 $streams = getRequestParams();
 $imdb = $streams->id;
 $jsonfile = dirname(__FILE__) . '/streams/' . $imdb . '.json';
-if (realpath($jsonfile) {
+if (realpath($jsonfile)) {
 $jsonfilestatus = 1;
 $datenow = date('ymdHi');
 $jsonfiledate = date('ymdHi', filemtime($jsonfile));

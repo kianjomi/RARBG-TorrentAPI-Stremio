@@ -2,30 +2,6 @@
 include 'helpers.php';
 $streams = getRequestParams();
 $imdb = $streams->id;
-$jsonfile = dirname(__FILE__) . '/streams/' . $imdb . '.json';
-if (realpath($jsonfile)) {
-$jsonfilestatus = 1;
-$datenow = date('ymdHi');
-$jsonfiledate = date('ymdHi', filemtime($jsonfile));
-if (filesize($jsonfile) >= 875) {
-$jsonfilesize = 1;	
-} else {
-$jsonfilesize = 0;
-}
-if ($jsonfiledate >= $datenow) {
-$jsonfilenor = 1;
-} else {
-$jsonfilenor = 0;
-}
-} else {
-$jsonfilestatus = 0;
-$jsonfilesize = 0;
-$jsonfilenor = 0;
-}
-if ($jsonfilestatus == 1 AND $jsonfilesize == 1 AND $jsonfilenor == 1) {
-setHeaders();
-echo file_get_contents($jsonfile);
-} else {
 $appid = date('ymdH');
 $tokenurl = 'https://torrentapi.org/pubapi_v2.1.php?app_id='.$appid.'&get_token=get_token';
 $tokench = curl_init($tokenurl);
@@ -85,7 +61,20 @@ $size8 = $size[1][8];
 $size8 = $size8/1048576;
 $size9 = $size[1][9];
 $size9 = $size9/1048576;
-setHeaders();
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+$pdate = str_replace('-', '', $pubdate[1][0]);
+$pdate = date_create($pdate);
+$pdate = date_format($pdate, 'ymdHi');
+$pdate2d = date('ymdHi', strtotime('-2 days'));
+if ($pubdate[1][0] == '') {
+header("Cache-Control: no-store");
+} elseif ($pdate >= $pdate2d) {
+header("Cache-Control: public, max-age=43200");
+} else {
+header("Cache-Control: public, max-age=1036800");	
+}
+header("Content-Type: application/json");
 $stream0 = new stdClass();
 $stream0->availability = "1";
 $stream0->name = "RARBG";
@@ -129,18 +118,4 @@ $stream9->title = $title[1][9].' , '.$seeders[1][9].' S / '.$leechers[1][9].' L 
 $stream9->infoHash = $magnet[1][9];
 $streams->streams = array($stream0,$stream1,$stream2,$stream3,$stream4,$stream5,$stream6,$stream7,$stream8,$stream9);
 echo json_encode((array)$streams);
-$fpjson = fopen(dirname(__FILE__) . '/streams/' . $imdb . '.json', 'w');
-fwrite($fpjson, json_encode($streams));
-fclose($fpjson);
-$pdate = str_replace('-', '', $pubdate[1][0]);
-$pdate = date_create($pdate);
-$pdate = date_format($pdate, 'ymdHi');
-$pdate3d = date('ymdHi', strtotime('-3 days'));
-if ($pdate >= $pdate3d) {
-$jsonfcdate = time() + (3600 * 12);
-} else {
-$jsonfcdate = time() + (86400 * 15);
-}
-touch($jsonfile, $jsonfcdate);
-}
 ?>

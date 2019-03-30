@@ -9,7 +9,7 @@ a,body,button,html{color:#fff}body,button,h1,h2,h3,h4,h5,h6,html{font-weight:300
 <body>
 <div id="addon">
 <img class="logo" src="logo.png">
-<h3 class="version"><i>1.0.0</i></h3>
+<h3 class="version"><i>1.2.3</i></h3>
 <h3 class="description">Watch movies and series from RARBG in Stremio.</h3>
 <a class="activate-link" href="stremio://<?php echo $_SERVER['HTTP_HOST']; ?>/manifest.json"><button name="Install">Install Add-on</button></a>
 <h3 class="contact">Created in Portugal, by <a href="https://github.com/kianjomi/RARBG-TorrentAPI-Stremio" target="_blank">@kianjomi</a>.</h3>

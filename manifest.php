@@ -1,9 +1,12 @@
 <?php
 include 'helpers.php';
-setHeaders();
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Cache-Control: public, max-age=2592000");
+header("Content-Type: application/json");
 $manifest = new stdClass();
 $manifest->id = "com.stremio.rarbgtorrentapi";
-$manifest->version = "1.0.0";
+$manifest->version = "1.2.3";
 $manifest->name = "RARBG TorrentAPI";
 $manifest->description = "Watch movies and series from RARBG in Stremio.";
 $manifest->icon = "https://".$_SERVER['HTTP_HOST']."/logo.png";

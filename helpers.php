@@ -16,9 +16,4 @@ $requestArgs->extra = (object) $requestArgs->extra;
 }
 return $requestArgs;
 }
-function setHeaders() {
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
-header("Content-Type: application/json");
-}
 ?>

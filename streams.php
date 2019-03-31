@@ -68,11 +68,11 @@ $pdate = date_create($pdate);
 $pdate = date_format($pdate, 'ymdHi');
 $pdate2d = date('ymdHi', strtotime('-2 days'));
 if ($pubdate[1][0] == '') {
-header("Cache-Control: public, max-age=60");
+header("Cache-Control: public, max-age=30, s-maxage=60");
 } elseif ($pdate >= $pdate2d) {
-header("Cache-Control: public, max-age=25200");
+header("Cache-Control: public, max-age=30, s-maxage=25200");
 } else {
-header("Cache-Control: public, max-age=604800");	
+header("Cache-Control: public, max-age=30, s-maxage=604800");	
 }
 header("Content-Type: application/json");
 $stream0 = new stdClass();

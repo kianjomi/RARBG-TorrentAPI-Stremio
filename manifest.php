@@ -2,7 +2,7 @@
 include 'helpers.php';
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
-header("Cache-Control: public, max-age=60, s-maxage=604800");
+header("Cache-Control: public, max-age=30, s-maxage=604800");
 header("Content-Type: application/json");
 $manifest = new stdClass();
 $manifest->id = "com.stremio.rarbgtorrentapi";
